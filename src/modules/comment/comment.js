@@ -282,7 +282,7 @@ function theme_comments(variables) {
     var html = '<div ' + drupalgap_attributes(variables.attributes) + '>';
     // Show a comments title if there are any comments.
     if (variables.node.comment_count > 0) {
-      html += '<h2 class="comments-title">Comments</h2>';
+      html += '<h2 class="comments-title">' + t('Comments') + '</h2>';
     }
     // If the comments are already rendered, show them.
     if (variables.comments) { html += variables.comments; }
