@@ -308,6 +308,8 @@ function drupalgap_entity_render_field(entity_type, entity, field_name,
         items,
         display
       );
+      elements_number = Object.getOwnPropertyNames(elements).length;
+      if (elements_number > 1) { content += '<ul>'; }
       for (var delta in elements) {
           if (!elements.hasOwnProperty(delta)) { continue; }
           var element = elements[delta];
@@ -318,8 +320,13 @@ function drupalgap_entity_render_field(entity_type, entity, field_name,
           else if (element.theme) {
             element_content = theme(element.theme, element);
           }
-          content += element_content;
+          if (elements_number > 1) {
+            content += '<li>' + element_content + '</li>';
+          } else {
+            content += element_content;
+          }
       }
+      if (elements_number > 1) { content += '</ul>'; }
     }
     else {
       console.log(
@@ -329,7 +336,7 @@ function drupalgap_entity_render_field(entity_type, entity, field_name,
     }
     // Render the field label, if necessary.
     if (content != '' && display['label'] != 'hidden') {
-      var label = '<h3>' + field.label + '</h3>';
+      var label = '<h3>' + t(field.label) + '</h3>';
       // Place the label above or below the field content.
       label = '<div>' + label + '</div>';
       switch (display['label']) {
