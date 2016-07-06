@@ -550,6 +550,8 @@ function drupalgap_entity_build_from_form_state(form, form_state) {
       }
       else if (typeof value !== 'undefined') { entity[name] = value; }
     }
+     entity['comment_body']['und'] = entity['comment_body'][language];
+     delete entity['comment_body'][language];
     return entity;
   }
   catch (error) {
