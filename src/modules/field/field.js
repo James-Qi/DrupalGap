@@ -103,6 +103,7 @@ function drupalgap_field_info_instances_add_to_form(entity_type, bundle, form, e
     //if (!bundle) { fields = fields[entity_type]; }
     // Use the default language, unless the entity has one specified.
     var language = language_default();
+    var default_lang = language_default();
     if (entity && entity.language) { language = entity.language; }
     // Iterate over each field in the entity and add it to the form. If there is
     // a value present in the entity, then set the field's form element default
@@ -143,7 +144,7 @@ function drupalgap_field_info_instances_add_to_form(entity_type, bundle, form, e
               language = 'und';
             }
 
-            if (!form.elements[name][language]) { form.elements[name][language] = {}; }
+            if (!form.elements[name][default_lang]) { form.elements[name][default_lang] = {}; }
 
             for (var delta = 0; delta < cardinality; delta++) {
 
@@ -160,13 +161,13 @@ function drupalgap_field_info_instances_add_to_form(entity_type, bundle, form, e
               if (default_value == null) { default_value = ''; }
 
               // Note, not all fields have a language code to use here, e.g. taxonomy term reference fields do not.
-              form.elements[name][language][delta] = {
+              form.elements[name][default_lang][delta] = {
                 value: default_value
               };
 
               // Place the field item onto the element.
               if (entity[name][language][delta]) {
-                form.elements[name][language][delta].item =
+                form.elements[name][default_lang][delta].item =
                   entity[name][language][delta];
               }
 
